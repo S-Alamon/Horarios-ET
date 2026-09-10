@@ -275,6 +275,146 @@
       outline-offset: 1px
     }
 
+    /* ---- selector múltiple de grupos ---- */
+    .grupo-multiple {
+      position: relative;
+      min-width: 220px;
+      flex: 1.35 1 250px
+    }
+
+    .multi-trigger {
+      width: 100%;
+      min-height: 41px;
+      padding: 9px 34px 9px 10px;
+      text-align: left;
+      font: inherit;
+      font-size: 14.5px;
+      color: var(--ink);
+      background: #fff;
+      border: 1px solid #C3CDD9;
+      border-radius: 3px;
+      cursor: pointer;
+      position: relative;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .multi-trigger::after {
+      content: "";
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      width: 7px;
+      height: 7px;
+      border-right: 2px solid #63758A;
+      border-bottom: 2px solid #63758A;
+      transform: translateY(-65%) rotate(45deg);
+      transition: transform .15s ease
+    }
+
+    .multi-trigger[aria-expanded="true"]::after {
+      transform: translateY(-20%) rotate(225deg)
+    }
+
+    .multi-trigger:disabled {
+      background: #F1F4F7;
+      color: #9AA8B8;
+      cursor: default
+    }
+
+    .multi-trigger:focus-visible {
+      outline: 3px solid rgba(15, 42, 74, .28);
+      outline-offset: 1px;
+      border-color: var(--navy)
+    }
+
+    .multi-panel {
+      position: absolute;
+      z-index: 90;
+      left: 0;
+      right: 0;
+      top: calc(100% + 5px);
+      max-height: 330px;
+      overflow-y: auto;
+      background: #fff;
+      border: 1px solid #C3CDD9;
+      border-radius: 3px;
+      box-shadow: 0 12px 30px rgba(15, 42, 74, .16);
+      padding: 7px
+    }
+
+    .multi-panel[hidden] { display: none }
+
+    .multi-seccion + .multi-seccion {
+      border-top: 1px solid #E5EAF0;
+      margin-top: 6px;
+      padding-top: 6px
+    }
+
+    .multi-seccion-titulo {
+      display: block;
+      padding: 4px 7px 5px;
+      color: var(--muted);
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase
+    }
+
+    .multi-opcion {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 13.5px;
+      color: var(--ink)
+    }
+
+    .multi-opcion:hover { background: #F1F4F7 }
+    .multi-opcion input { margin: 0; accent-color: var(--navy) }
+
+    #vistasMultiples[hidden] { display: none }
+    #vistasMultiples { padding: 18px 0 28px }
+
+    .resumen-multiple {
+      margin: 0 0 14px;
+      padding: 12px 20px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--navy);
+      border-radius: 3px
+    }
+
+    .resumen-multiple strong {
+      color: var(--navy);
+      font-size: 17px
+    }
+
+    .resumen-multiple span {
+      color: var(--muted);
+      font-size: 13px;
+      margin-left: 8px
+    }
+
+    #vistasMultiples .hoja {
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      margin-bottom: 18px;
+      padding: 14px 0 8px;
+      overflow: hidden
+    }
+
+    #vistasMultiples .hoja + .hoja .rotulo {
+      border-top: 0;
+      padding-top: 0;
+      margin-top: 0
+    }
+
+    #vistasMultiples .hoja .board { padding-top: 8px }
+
 
 
     /* ---- resumen ---- */
@@ -460,17 +600,7 @@
     .blk .d.vacia {
       display: none !important
     }
-
-    .blk .o {
-      font-size: 12.6px;
-      line-height: 1.22;
-      color: #5C6A76;
-      margin: var(--gap, 4px) 0 0;
-      font-style: italic;
-      overflow-wrap: break-word
-    }
-
-    .blk .d strong {
+.blk .d strong {
       color: inherit;
       font-weight: 700
     }
@@ -586,15 +716,7 @@
       color: #43535F;
       margin-top: 2px
     }
-
-    .lista .info .o {
-      font-size: 12px;
-      color: #5C6A76;
-      margin-top: 3px;
-      font-style: italic
-    }
-
-    .lista .vacio {
+.lista .vacio {
       padding: 11px 13px;
       color: var(--muted);
       font-size: 13px
@@ -611,19 +733,6 @@
     body.midiendo-impresion .board {
       overflow: visible
     }
-
-
-
-    body.vista-dias .board {
-      display: none
-    }
-
-    body.vista-dias .lista {
-      display: block
-    }
-
-
-
     /* ---- impresión de una carrera y turno completos ---- */
 
     #impresionMultiple {
@@ -935,12 +1044,7 @@
       .blk .d {
         color: #3A4854
       }
-
-      .blk .o {
-        color: #4E5C68
-      }
-
-      .legend .dot {
+.legend .dot {
         border: 1px solid;
         print-color-adjust: exact;
         -webkit-print-color-adjust: exact
@@ -974,17 +1078,6 @@
       .summary h2 {
         font-size: 17px
       }
-
-      /* siempre se imprime la grilla semanal, aunque en pantalla se esté viendo por día */
-
-      body.vista-dias .board {
-        display: block
-      }
-
-      body.vista-dias .lista {
-        display: none
-      }
-
       body {
         --hour: var(--hour-print)
       }
@@ -1022,22 +1115,12 @@
       body:not(.imprimiendo-multiple) .blk .h {
         font-size: var(--fh, 9px) !important
       }
-
-      body:not(.imprimiendo-multiple) .blk .o {
-        font-size: var(--fo, 8.5px) !important
-      }
-
-      body:not(.imprimiendo-multiple) .blk .t,
+body:not(.imprimiendo-multiple) .blk .t,
 
       body:not(.imprimiendo-multiple) .blk .h {
         margin-bottom: var(--pgap, 2px) !important
       }
-
-      body:not(.imprimiendo-multiple) .blk .o {
-        margin-top: var(--pgap, 2px) !important
-      }
-
-      body:not(.imprimiendo-multiple) .blk .h {
+body:not(.imprimiendo-multiple) .blk .h {
         display: var(--ph-linea, block) !important
       }
 
@@ -1125,7 +1208,7 @@
       }
 
       @page {
-        size: landscape;
+        size: A4 landscape;
         margin: 9mm
       }
 
@@ -1190,57 +1273,16 @@
 
       </div>
 
-      <div class="field">
+      <div class="field grupo-multiple">
 
-        <label for="grupo">Grupo</label>
+        <label>Grupo <span style="text-transform:none;letter-spacing:0;font-weight:400">(podés elegir varios)</span></label>
 
-        <select id="grupo" disabled>
-          <option value="">—</option>
-        </select>
+        <div id="grupoControl">
+          <button class="multi-trigger" id="grupoTrigger" type="button" disabled aria-expanded="false">—</button>
+          <div class="multi-panel" id="grupoPanel" hidden></div>
+        </div>
 
-      </div>
-
-      <div class="field" style="flex:0 1 190px">
-
-        <label for="vistaSel">Ver como</label>
-
-        <select id="vistaSel">
-
-          <option value="semana">Semana completa</option>
-
-          <option value="dias">Día por día</option>
-
-        </select>
-
-      </div>
-
-      <div class="field" style="flex:0 1 132px">
-
-        <label for="hoja">Hoja</label>
-
-        <select id="hoja">
-
-          <option value="a4">A4</option>
-
-          <option value="legal">Legal</option>
-
-          <option value="carta">Carta</option>
-
-        </select>
-
-      </div>
-
-      <div class="field" style="flex:0 1 168px">
-
-        <label for="alcance">Qué imprimir</label>
-
-        <select id="alcance">
-
-          <option value="grupo">Mi grupo</option>
-
-          <option value="carrera">Carrera y turno</option>
-
-        </select>
+        <select id="grupo" multiple hidden disabled aria-hidden="true"></select>
 
       </div>
 
@@ -1248,7 +1290,7 @@
 
         <label>&nbsp;</label>
 
-        <button class="btn" id="imprimir" type="button">Imprimir</button>
+        <button class="btn" id="mostrarTodos" type="button" disabled title="Selecciona y muestra todos los grupos del turno elegido">Mostrar todos los grupos</button>
 
       </div>
 
@@ -1262,10 +1304,9 @@
 
     <div class="empty" id="empty">
 
-      <strong>Todavía no elegiste un grupo</strong>
+      <strong>Todavía no elegiste ningún grupo</strong>
 
-      Empezá por la carrera. Después vas a poder elegir el turno matutino (08:00 a 11:00 o 09:00 a 13:00), vespertino
-      (16:00 a 19:00) o nocturno (19:30 a 22:30) y, por último, tu grupo.
+      Empezá por la carrera y el turno. Después podés marcar uno o varios grupos, o usar “Mostrar todos los grupos”.
 
     </div>
 
@@ -1308,6 +1349,8 @@
       <div class="lista" id="lista"></div>
 
     </section>
+
+    <section id="vistasMultiples" hidden></section>
 
   </main>
 
@@ -2328,8 +2371,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "P1",
-      "r": "Lab. 008",
-      "o": "Martínez"
+      "r": "Lab. 008"
     },
     {
       "g": "ATI_M1A",
@@ -2339,8 +2381,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "PL",
-      "r": "REMOTO",
-      "o": "Rodriguez"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_M1A",
@@ -2350,8 +2391,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "P1",
-      "r": "Salón 323",
-      "o": "Martínez"
+      "r": "Salón 323"
     },
     {
       "g": "ATI_M1A",
@@ -2361,8 +2401,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "DI",
-      "r": "REMOTO",
-      "o": "Fernandez"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_M1B",
@@ -2372,8 +2411,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "P1",
-      "r": "REMOTO",
-      "o": "Zonca"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_M1B",
@@ -2383,8 +2421,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "PL",
-      "r": "REMOTO",
-      "o": "Rodriguez"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_M1B",
@@ -2394,8 +2431,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "P1",
-      "r": "REMOTO",
-      "o": "Zonca"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_M1B",
@@ -2405,8 +2441,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "DI",
-      "r": "REMOTO",
-      "o": "Pereyra"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_M1C",
@@ -2416,8 +2451,7 @@
       "ini": "09:00",
       "fin": "12:00",
       "s": "DI",
-      "r": "REMOTO",
-      "o": "Bergereaux"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_M1C",
@@ -2427,8 +2461,7 @@
       "ini": "09:00",
       "fin": "12:00",
       "s": "P1",
-      "r": "Salón 222",
-      "o": "Vieira"
+      "r": "Salón 222"
     },
     {
       "g": "ATI_M1C",
@@ -2438,8 +2471,7 @@
       "ini": "09:00",
       "fin": "12:00",
       "s": "PL",
-      "r": "Salón 222",
-      "o": "Bustamante"
+      "r": "Salón 222"
     },
     {
       "g": "ATI_M1C",
@@ -2449,8 +2481,7 @@
       "ini": "09:00",
       "fin": "12:00",
       "s": "P1",
-      "r": "Lab. 220",
-      "o": "Vieira"
+      "r": "Lab. 220"
     },
     {
       "g": "ATI_M2A",
@@ -2460,8 +2491,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "P2",
-      "r": "Lab. 007",
-      "o": "Palay"
+      "r": "Lab. 007"
     },
     {
       "g": "ATI_M2A",
@@ -2471,8 +2501,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "MD",
-      "r": "Salón 326",
-      "o": "Pombo"
+      "r": "Salón 326"
     },
     {
       "g": "ATI_M2A",
@@ -2482,8 +2511,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "P2",
-      "r": "Salón 326",
-      "o": "Palay"
+      "r": "Salón 326"
     },
     {
       "g": "ATI_M2A",
@@ -2493,8 +2521,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "B1",
-      "r": "Lab. 006",
-      "o": "Cohen"
+      "r": "Lab. 006"
     },
     {
       "g": "ATI_M2B",
@@ -2504,8 +2531,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "P2",
-      "r": "Salón 222",
-      "o": "Morales"
+      "r": "Salón 222"
     },
     {
       "g": "ATI_M2B",
@@ -2515,8 +2541,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "B1",
-      "r": "Lab. 008",
-      "o": "Cohen"
+      "r": "Lab. 008"
     },
     {
       "g": "ATI_M2B",
@@ -2526,8 +2551,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "P2",
-      "r": "Lab. 008",
-      "o": "Morales"
+      "r": "Lab. 008"
     },
     {
       "g": "ATI_M2B",
@@ -2537,8 +2561,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "MD",
-      "r": "Salón 323",
-      "o": "Coggan"
+      "r": "Salón 323"
     },
     {
       "g": "ATI_M2C",
@@ -2548,8 +2571,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "MD",
-      "r": "REMOTO",
-      "o": "Olivera"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_M2C",
@@ -2559,8 +2581,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "P2",
-      "r": "REMOTO",
-      "o": "Palay"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_M2C",
@@ -2570,8 +2591,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "B1",
-      "r": "REMOTO",
-      "o": "Cohen"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_M2C",
@@ -2581,8 +2601,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "P2",
-      "r": "REMOTO",
-      "o": "Palay"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_M3A",
@@ -2592,8 +2611,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "AE",
-      "r": "Lab. 009",
-      "o": "Cohen"
+      "r": "Lab. 009"
     },
     {
       "g": "ATI_M3A",
@@ -2603,8 +2621,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "DW",
-      "r": "Salón 316",
-      "o": "Rodriguez"
+      "r": "Salón 316"
     },
     {
       "g": "ATI_M3A",
@@ -2614,8 +2631,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "B2",
-      "r": "Lab. 007",
-      "o": "Pintos"
+      "r": "Lab. 007"
     },
     {
       "g": "ATI_M3A",
@@ -2625,8 +2641,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "DW",
-      "r": "Lab. 007",
-      "o": "Rodriguez"
+      "r": "Lab. 007"
     },
     {
       "g": "ATI_M3B",
@@ -2636,8 +2651,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "DW",
-      "r": "REMOTO",
-      "o": "Rodriguez"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_M3B",
@@ -2647,8 +2661,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "B2",
-      "r": "REMOTO",
-      "o": "Benitez"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_M3B",
@@ -2658,8 +2671,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "DW",
-      "r": "REMOTO",
-      "o": "Rodriguez"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_M3B",
@@ -2669,8 +2681,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "AE",
-      "r": "REMOTO",
-      "o": "Nuñez"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_M3C",
@@ -2680,8 +2691,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "DW",
-      "r": "Salón 323",
-      "o": "Lopez"
+      "r": "Salón 323"
     },
     {
       "g": "ATI_M3C",
@@ -2691,8 +2701,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "B2",
-      "r": "Lab. 006",
-      "o": "Guzman"
+      "r": "Lab. 006"
     },
     {
       "g": "ATI_M3C",
@@ -2702,8 +2711,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "AE",
-      "r": "Lab. 009",
-      "o": "Pesce"
+      "r": "Lab. 009"
     },
     {
       "g": "ATI_M3C",
@@ -2713,8 +2721,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "DW",
-      "r": "Lab. 009",
-      "o": "Lopez"
+      "r": "Lab. 009"
     },
     {
       "g": "ATI_M4A",
@@ -2724,8 +2731,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "DA",
-      "r": "REMOTO",
-      "o": "Campalans"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_M4A",
@@ -2735,8 +2741,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "FS",
-      "r": "REMOTO",
-      "o": "Fagnoni"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_M4A",
@@ -2746,8 +2751,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "DA",
-      "r": "REMOTO",
-      "o": "Campalans"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_M4A",
@@ -2757,8 +2761,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "FS",
-      "r": "REMOTO",
-      "o": "Fagnoni"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_M4B",
@@ -2768,8 +2771,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "FS",
-      "r": "Lab. 227",
-      "o": "Fagnoni"
+      "r": "Lab. 227"
     },
     {
       "g": "ATI_M4B",
@@ -2779,8 +2781,7 @@
       "ini": "09:00",
       "fin": "12:00",
       "s": "DA",
-      "r": "Lab. 221",
-      "o": "de Sosa"
+      "r": "Lab. 221"
     },
     {
       "g": "ATI_M4B",
@@ -2790,8 +2791,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "FS",
-      "r": "Lab. 227",
-      "o": "Fagnoni"
+      "r": "Lab. 227"
     },
     {
       "g": "ATI_M4B",
@@ -2801,8 +2801,7 @@
       "ini": "09:00",
       "fin": "12:00",
       "s": "DA",
-      "r": "Lab. 221",
-      "o": "de Sosa"
+      "r": "Lab. 221"
     },
     {
       "g": "AP_M1A",
@@ -2812,8 +2811,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "P1",
-      "r": "Lab. 008",
-      "o": "Martínez"
+      "r": "Lab. 008"
     },
     {
       "g": "AP_M1A",
@@ -2823,8 +2821,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "PL",
-      "r": "REMOTO",
-      "o": "Rodriguez"
+      "r": "REMOTO"
     },
     {
       "g": "AP_M1A",
@@ -2834,8 +2831,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "P1",
-      "r": "Salón 323",
-      "o": "Martínez"
+      "r": "Salón 323"
     },
     {
       "g": "AP_M1A",
@@ -2845,8 +2841,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "DI",
-      "r": "REMOTO",
-      "o": "Fernandez"
+      "r": "REMOTO"
     },
     {
       "g": "AP_M1B",
@@ -2856,8 +2851,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "P1",
-      "r": "REMOTO",
-      "o": "Zonca"
+      "r": "REMOTO"
     },
     {
       "g": "AP_M1B",
@@ -2867,8 +2861,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "PL",
-      "r": "REMOTO",
-      "o": "Rodriguez"
+      "r": "REMOTO"
     },
     {
       "g": "AP_M1B",
@@ -2878,8 +2871,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "P1",
-      "r": "REMOTO",
-      "o": "Zonca"
+      "r": "REMOTO"
     },
     {
       "g": "AP_M1B",
@@ -2889,8 +2881,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "DI",
-      "r": "REMOTO",
-      "o": "Pereyra"
+      "r": "REMOTO"
     },
     {
       "g": "AP_M1C",
@@ -2900,8 +2891,7 @@
       "ini": "09:00",
       "fin": "12:00",
       "s": "DI",
-      "r": "REMOTO",
-      "o": "Bergereaux"
+      "r": "REMOTO"
     },
     {
       "g": "AP_M1C",
@@ -2911,8 +2901,7 @@
       "ini": "09:00",
       "fin": "12:00",
       "s": "P1",
-      "r": "Salón 222",
-      "o": "Vieira"
+      "r": "Salón 222"
     },
     {
       "g": "AP_M1C",
@@ -2922,8 +2911,7 @@
       "ini": "09:00",
       "fin": "12:00",
       "s": "PL",
-      "r": "Salón 222",
-      "o": "Bustamante"
+      "r": "Salón 222"
     },
     {
       "g": "AP_M1C",
@@ -2933,8 +2921,7 @@
       "ini": "09:00",
       "fin": "12:00",
       "s": "P1",
-      "r": "Lab. 220",
-      "o": "Vieira"
+      "r": "Lab. 220"
     },
     {
       "g": "AP_M2A",
@@ -2944,8 +2931,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "P2",
-      "r": "Lab. 007",
-      "o": "Palay"
+      "r": "Lab. 007"
     },
     {
       "g": "AP_M2A",
@@ -2955,8 +2941,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "MD",
-      "r": "Salón 326",
-      "o": "Pombo"
+      "r": "Salón 326"
     },
     {
       "g": "AP_M2A",
@@ -2966,8 +2951,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "P2",
-      "r": "Salón 326",
-      "o": "Palay"
+      "r": "Salón 326"
     },
     {
       "g": "AP_M2A",
@@ -2977,8 +2961,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "B1",
-      "r": "Lab. 006",
-      "o": "Cohen"
+      "r": "Lab. 006"
     },
     {
       "g": "AP_M2B",
@@ -2988,8 +2971,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "P2",
-      "r": "Salón 222",
-      "o": "Morales"
+      "r": "Salón 222"
     },
     {
       "g": "AP_M2B",
@@ -2999,8 +2981,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "B1",
-      "r": "Lab. 008",
-      "o": "Cohen"
+      "r": "Lab. 008"
     },
     {
       "g": "AP_M2B",
@@ -3010,8 +2991,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "P2",
-      "r": "Lab. 008",
-      "o": "Morales"
+      "r": "Lab. 008"
     },
     {
       "g": "AP_M2B",
@@ -3021,8 +3001,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "MD",
-      "r": "Salón 323",
-      "o": "Coggan"
+      "r": "Salón 323"
     },
     {
       "g": "AP_M2C",
@@ -3032,8 +3011,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "MD",
-      "r": "REMOTO",
-      "o": "Olivera"
+      "r": "REMOTO"
     },
     {
       "g": "AP_M2C",
@@ -3043,8 +3021,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "P2",
-      "r": "REMOTO",
-      "o": "Palay"
+      "r": "REMOTO"
     },
     {
       "g": "AP_M2C",
@@ -3054,8 +3031,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "B1",
-      "r": "REMOTO",
-      "o": "Cohen"
+      "r": "REMOTO"
     },
     {
       "g": "AP_M2C",
@@ -3065,8 +3041,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "P2",
-      "r": "REMOTO",
-      "o": "Palay"
+      "r": "REMOTO"
     },
     {
       "g": "AP_M3A",
@@ -3076,8 +3051,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "AE",
-      "r": "Lab. 009",
-      "o": "Cohen"
+      "r": "Lab. 009"
     },
     {
       "g": "AP_M3A",
@@ -3087,8 +3061,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "DW",
-      "r": "Salón 316",
-      "o": "Rodriguez"
+      "r": "Salón 316"
     },
     {
       "g": "AP_M3A",
@@ -3098,8 +3071,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "B2",
-      "r": "Lab. 007",
-      "o": "Pintos"
+      "r": "Lab. 007"
     },
     {
       "g": "AP_M3A",
@@ -3109,8 +3081,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "DW",
-      "r": "Lab. 007",
-      "o": "Rodriguez"
+      "r": "Lab. 007"
     },
     {
       "g": "AP_M3B",
@@ -3120,8 +3091,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "DW",
-      "r": "REMOTO",
-      "o": "Rodriguez"
+      "r": "REMOTO"
     },
     {
       "g": "AP_M3B",
@@ -3131,8 +3101,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "B2",
-      "r": "REMOTO",
-      "o": "Benitez"
+      "r": "REMOTO"
     },
     {
       "g": "AP_M3B",
@@ -3142,8 +3111,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "DW",
-      "r": "REMOTO",
-      "o": "Rodriguez"
+      "r": "REMOTO"
     },
     {
       "g": "AP_M3B",
@@ -3153,8 +3121,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "AE",
-      "r": "REMOTO",
-      "o": "Nuñez"
+      "r": "REMOTO"
     },
     {
       "g": "AP_M3C",
@@ -3164,8 +3131,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "DW",
-      "r": "Salón 323",
-      "o": "Lopez"
+      "r": "Salón 323"
     },
     {
       "g": "AP_M3C",
@@ -3175,8 +3141,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "B2",
-      "r": "Lab. 006",
-      "o": "Guzman"
+      "r": "Lab. 006"
     },
     {
       "g": "AP_M3C",
@@ -3186,8 +3151,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "AE",
-      "r": "Lab. 009",
-      "o": "Pesce"
+      "r": "Lab. 009"
     },
     {
       "g": "AP_M3C",
@@ -3197,8 +3161,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "DW",
-      "r": "Lab. 009",
-      "o": "Lopez"
+      "r": "Lab. 009"
     },
     {
       "g": "AP_M4A",
@@ -3208,8 +3171,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "DA",
-      "r": "REMOTO",
-      "o": "Campalans"
+      "r": "REMOTO"
     },
     {
       "g": "AP_M4A",
@@ -3219,8 +3181,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "FS",
-      "r": "REMOTO",
-      "o": "Fagnoni"
+      "r": "REMOTO"
     },
     {
       "g": "AP_M4A",
@@ -3230,8 +3191,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "DA",
-      "r": "REMOTO",
-      "o": "Campalans"
+      "r": "REMOTO"
     },
     {
       "g": "AP_M4A",
@@ -3241,8 +3201,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "FS",
-      "r": "REMOTO",
-      "o": "Fagnoni"
+      "r": "REMOTO"
     },
     {
       "g": "AP_M4B",
@@ -3252,8 +3211,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "FS",
-      "r": "Lab. 227",
-      "o": "Fagnoni"
+      "r": "Lab. 227"
     },
     {
       "g": "AP_M4B",
@@ -3263,8 +3221,7 @@
       "ini": "09:00",
       "fin": "12:00",
       "s": "DA",
-      "r": "Lab. 221",
-      "o": "de Sosa"
+      "r": "Lab. 221"
     },
     {
       "g": "AP_M4B",
@@ -3274,8 +3231,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "FS",
-      "r": "Lab. 227",
-      "o": "Fagnoni"
+      "r": "Lab. 227"
     },
     {
       "g": "AP_M4B",
@@ -3285,8 +3241,7 @@
       "ini": "09:00",
       "fin": "12:00",
       "s": "DA",
-      "r": "Lab. 221",
-      "o": "de Sosa"
+      "r": "Lab. 221"
     },
     {
       "g": "ATI_V1A",
@@ -3296,8 +3251,7 @@
       "ini": "16:00",
       "fin": "19:00",
       "s": "DI",
-      "r": "REMOTO",
-      "o": "Nuñez"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_V1A",
@@ -3307,8 +3261,7 @@
       "ini": "16:00",
       "fin": "19:00",
       "s": "P1",
-      "r": "Salón 222",
-      "o": "Vieira"
+      "r": "Salón 222"
     },
     {
       "g": "ATI_V1A",
@@ -3318,8 +3271,7 @@
       "ini": "16:00",
       "fin": "19:00",
       "s": "PL",
-      "r": "Salón 222",
-      "o": "Federico"
+      "r": "Salón 222"
     },
     {
       "g": "ATI_V1A",
@@ -3329,8 +3281,7 @@
       "ini": "16:00",
       "fin": "19:00",
       "s": "P1",
-      "r": "Lab. 227",
-      "o": "Vieira"
+      "r": "Lab. 227"
     },
     {
       "g": "ATI_V2A",
@@ -3340,8 +3291,7 @@
       "ini": "16:00",
       "fin": "19:00",
       "s": "P2",
-      "r": "Salón 222",
-      "o": "Rodriguez"
+      "r": "Salón 222"
     },
     {
       "g": "ATI_V2A",
@@ -3351,8 +3301,7 @@
       "ini": "16:00",
       "fin": "19:00",
       "s": "P2",
-      "r": "Lab. 220",
-      "o": "Rodriguez"
+      "r": "Lab. 220"
     },
     {
       "g": "ATI_V2A",
@@ -3362,8 +3311,7 @@
       "ini": "16:00",
       "fin": "19:00",
       "s": "B1",
-      "r": "Lab. 220",
-      "o": "Cohen"
+      "r": "Lab. 220"
     },
     {
       "g": "ATI_V2A",
@@ -3373,8 +3321,7 @@
       "ini": "16:00",
       "fin": "19:00",
       "s": "MD",
-      "r": "Salón 323",
-      "o": "Galiana"
+      "r": "Salón 323"
     },
     {
       "g": "AP_V1A",
@@ -3384,8 +3331,7 @@
       "ini": "16:00",
       "fin": "19:00",
       "s": "DI",
-      "r": "REMOTO",
-      "o": "Nuñez"
+      "r": "REMOTO"
     },
     {
       "g": "AP_V1A",
@@ -3395,8 +3341,7 @@
       "ini": "16:00",
       "fin": "19:00",
       "s": "P1",
-      "r": "Salón 222",
-      "o": "Vieira"
+      "r": "Salón 222"
     },
     {
       "g": "AP_V1A",
@@ -3406,8 +3351,7 @@
       "ini": "16:00",
       "fin": "19:00",
       "s": "PL",
-      "r": "Salón 222",
-      "o": "Federico"
+      "r": "Salón 222"
     },
     {
       "g": "AP_V1A",
@@ -3417,8 +3361,7 @@
       "ini": "16:00",
       "fin": "19:00",
       "s": "P1",
-      "r": "Lab. 227",
-      "o": "Vieira"
+      "r": "Lab. 227"
     },
     {
       "g": "AP_V2A",
@@ -3428,8 +3371,7 @@
       "ini": "16:00",
       "fin": "19:00",
       "s": "P2",
-      "r": "Salón 222",
-      "o": "Rodriguez"
+      "r": "Salón 222"
     },
     {
       "g": "AP_V2A",
@@ -3439,8 +3381,7 @@
       "ini": "16:00",
       "fin": "19:00",
       "s": "P2",
-      "r": "Lab. 220",
-      "o": "Rodriguez"
+      "r": "Lab. 220"
     },
     {
       "g": "AP_V2A",
@@ -3450,8 +3391,7 @@
       "ini": "16:00",
       "fin": "19:00",
       "s": "B1",
-      "r": "Lab. 220",
-      "o": "Cohen"
+      "r": "Lab. 220"
     },
     {
       "g": "AP_V2A",
@@ -3461,8 +3401,7 @@
       "ini": "16:00",
       "fin": "19:00",
       "s": "MD",
-      "r": "Salón 323",
-      "o": "Galiana"
+      "r": "Salón 323"
     },
     {
       "g": "ATI_N2D",
@@ -3472,8 +3411,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "B1",
-      "r": "Lab. 008",
-      "o": "Cohen"
+      "r": "Lab. 008"
     },
     {
       "g": "ATI_N2D",
@@ -3483,8 +3421,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "MD",
-      "r": "REMOTO",
-      "o": "Cabrera"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N3A",
@@ -3494,8 +3431,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "B2",
-      "r": "REMOTO",
-      "o": "Thul"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N3A",
@@ -3505,8 +3441,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DW",
-      "r": "REMOTO",
-      "o": "Gañi"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N3A",
@@ -3516,8 +3451,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "AE",
-      "r": "REMOTO",
-      "o": "Espinal"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N3A",
@@ -3527,8 +3461,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DW",
-      "r": "REMOTO",
-      "o": "Gañi"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N3B",
@@ -3538,8 +3471,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DW",
-      "r": "Salón 323",
-      "o": "Pino"
+      "r": "Salón 323"
     },
     {
       "g": "ATI_N3B",
@@ -3549,8 +3481,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "AE",
-      "r": "Lab. 007",
-      "o": "Espinal"
+      "r": "Lab. 007"
     },
     {
       "g": "ATI_N3B",
@@ -3560,8 +3491,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DW",
-      "r": "Lab. 009",
-      "o": "Pino"
+      "r": "Lab. 009"
     },
     {
       "g": "ATI_N3B",
@@ -3571,8 +3501,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "B2",
-      "r": "Lab. 118",
-      "o": "Wolf"
+      "r": "Lab. 118"
     },
     {
       "g": "ATI_N3C",
@@ -3582,8 +3511,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DW",
-      "r": "REMOTO",
-      "o": "Dentone"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N3C",
@@ -3593,8 +3521,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "AE",
-      "r": "REMOTO",
-      "o": "Cepeda"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N3C",
@@ -3604,8 +3531,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DW",
-      "r": "REMOTO",
-      "o": "Dentone"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N3C",
@@ -3615,8 +3541,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "B2",
-      "r": "REMOTO",
-      "o": "Sendic"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N3D",
@@ -3626,8 +3551,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "AE",
-      "r": "REMOTO",
-      "o": "Nuñez"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N3D",
@@ -3637,8 +3561,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DW",
-      "r": "REMOTO",
-      "o": "Dentone"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N3D",
@@ -3648,8 +3571,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "B2",
-      "r": "REMOTO",
-      "o": "Benitez"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N3D",
@@ -3659,8 +3581,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DW",
-      "r": "REMOTO",
-      "o": "Dentone"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N3E",
@@ -3670,8 +3591,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "AE",
-      "r": "Lab. 008",
-      "o": "Cohen"
+      "r": "Lab. 008"
     },
     {
       "g": "ATI_N3E",
@@ -3681,8 +3601,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "B2",
-      "r": "Lab. 008",
-      "o": "Capone"
+      "r": "Lab. 008"
     },
     {
       "g": "ATI_N4A",
@@ -3692,8 +3611,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "FS",
-      "r": "Lab. 007",
-      "o": "Morales"
+      "r": "Lab. 007"
     },
     {
       "g": "ATI_N4A",
@@ -3703,8 +3621,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DA",
-      "r": "Lab. 227",
-      "o": "Gea"
+      "r": "Lab. 227"
     },
     {
       "g": "ATI_N4A",
@@ -3714,8 +3631,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "FS",
-      "r": "Lab. 007",
-      "o": "Morales"
+      "r": "Lab. 007"
     },
     {
       "g": "ATI_N4A",
@@ -3725,8 +3641,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DA",
-      "r": "Lab. 227",
-      "o": "Gea"
+      "r": "Lab. 227"
     },
     {
       "g": "ATI_N4B",
@@ -3736,8 +3651,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DA",
-      "r": "REMOTO",
-      "o": "Campalans"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N4B",
@@ -3747,8 +3661,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "FS",
-      "r": "REMOTO",
-      "o": "Nacimento"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N4B",
@@ -3758,8 +3671,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DA",
-      "r": "REMOTO",
-      "o": "Campalans"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N4B",
@@ -3769,8 +3681,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "FS",
-      "r": "REMOTO",
-      "o": "Nacimento"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N4C",
@@ -3780,8 +3691,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "FS",
-      "r": "REMOTO",
-      "o": "Ibarra"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N4C",
@@ -3791,8 +3701,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DA",
-      "r": "REMOTO",
-      "o": "Morales"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N4C",
@@ -3802,8 +3711,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "FS",
-      "r": "REMOTO",
-      "o": "Ibarra"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N4C",
@@ -3813,8 +3721,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DA",
-      "r": "REMOTO",
-      "o": "Morales"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N4E",
@@ -3824,8 +3731,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DDA",
-      "r": "REMOTO",
-      "o": "Gregoraz"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N4E",
@@ -3835,8 +3741,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "A2",
-      "r": "REMOTO",
-      "o": "Alvarez"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N4E",
@@ -3846,8 +3751,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DDA",
-      "r": "REMOTO",
-      "o": "Gregoraz"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N4E",
@@ -3857,8 +3761,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "IS",
-      "r": "REMOTO",
-      "o": "Lamas"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N6A",
@@ -3868,8 +3771,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DEVOPS",
-      "r": "REMOTO",
-      "o": "Silva"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N6A",
@@ -3879,8 +3781,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "GenIA",
-      "r": "REMOTO",
-      "o": "Davancens"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N6A",
@@ -3890,8 +3791,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DEVOPS",
-      "r": "REMOTO",
-      "o": "Silva"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N6B",
@@ -3901,8 +3801,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "BIGDATA",
-      "r": "REMOTO",
-      "o": "García"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N6B",
@@ -3912,8 +3811,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "PA",
-      "r": "REMOTO",
-      "o": "Fernandez"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N6B",
@@ -3923,8 +3821,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "BIGDATA",
-      "r": "REMOTO",
-      "o": "García"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N6C",
@@ -3934,8 +3831,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DEVOPS",
-      "r": "REMOTO",
-      "o": "Fontela"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N6C",
@@ -3945,8 +3841,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DEVOPS",
-      "r": "REMOTO",
-      "o": "Fontela"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N6D",
@@ -3956,8 +3851,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "BIGDATA",
-      "r": "REMOTO",
-      "o": "García"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N6D",
@@ -3967,8 +3861,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "GenIA",
-      "r": "REMOTO",
-      "o": "Davancens"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N6D",
@@ -3978,8 +3871,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "PA",
-      "r": "REMOTO",
-      "o": "Fernandez"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N6D",
@@ -3989,8 +3881,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "BIGDATA",
-      "r": "REMOTO",
-      "o": "García"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N2D",
@@ -4000,8 +3891,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "B1",
-      "r": "Lab. 008",
-      "o": "Cohen"
+      "r": "Lab. 008"
     },
     {
       "g": "AP_N2D",
@@ -4011,8 +3901,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "MD",
-      "r": "REMOTO",
-      "o": "Cabrera"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N3A",
@@ -4022,8 +3911,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "B2",
-      "r": "REMOTO",
-      "o": "Thul"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N3A",
@@ -4033,8 +3921,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DW",
-      "r": "REMOTO",
-      "o": "Gañi"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N3A",
@@ -4044,8 +3931,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "AE",
-      "r": "REMOTO",
-      "o": "Espinal"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N3A",
@@ -4055,8 +3941,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DW",
-      "r": "REMOTO",
-      "o": "Gañi"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N3B",
@@ -4066,8 +3951,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DW",
-      "r": "Salón 323",
-      "o": "Pino"
+      "r": "Salón 323"
     },
     {
       "g": "AP_N3B",
@@ -4077,8 +3961,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "AE",
-      "r": "Lab. 007",
-      "o": "Espinal"
+      "r": "Lab. 007"
     },
     {
       "g": "AP_N3B",
@@ -4088,8 +3971,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DW",
-      "r": "Lab. 009",
-      "o": "Pino"
+      "r": "Lab. 009"
     },
     {
       "g": "AP_N3B",
@@ -4099,8 +3981,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "B2",
-      "r": "Lab. 118",
-      "o": "Wolf"
+      "r": "Lab. 118"
     },
     {
       "g": "AP_N3C",
@@ -4110,8 +3991,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DW",
-      "r": "REMOTO",
-      "o": "Dentone"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N3C",
@@ -4121,8 +4001,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "AE",
-      "r": "REMOTO",
-      "o": "Cepeda"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N3C",
@@ -4132,8 +4011,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DW",
-      "r": "REMOTO",
-      "o": "Dentone"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N3C",
@@ -4143,8 +4021,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "B2",
-      "r": "REMOTO",
-      "o": "Sendic"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N3D",
@@ -4154,8 +4031,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "AE",
-      "r": "REMOTO",
-      "o": "Nuñez"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N3D",
@@ -4165,8 +4041,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DW",
-      "r": "REMOTO",
-      "o": "Dentone"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N3D",
@@ -4176,8 +4051,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "B2",
-      "r": "REMOTO",
-      "o": "Benitez"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N3D",
@@ -4187,8 +4061,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DW",
-      "r": "REMOTO",
-      "o": "Dentone"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N3E",
@@ -4198,8 +4071,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "AE",
-      "r": "Lab. 008",
-      "o": "Cohen"
+      "r": "Lab. 008"
     },
     {
       "g": "AP_N3E",
@@ -4209,8 +4081,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "B2",
-      "r": "Lab. 008",
-      "o": "Capone"
+      "r": "Lab. 008"
     },
     {
       "g": "AP_N4A",
@@ -4220,8 +4091,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "FS",
-      "r": "Lab. 007",
-      "o": "Morales"
+      "r": "Lab. 007"
     },
     {
       "g": "AP_N4A",
@@ -4231,8 +4101,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DA",
-      "r": "Lab. 227",
-      "o": "Gea"
+      "r": "Lab. 227"
     },
     {
       "g": "AP_N4A",
@@ -4242,8 +4111,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "FS",
-      "r": "Lab. 007",
-      "o": "Morales"
+      "r": "Lab. 007"
     },
     {
       "g": "AP_N4A",
@@ -4253,8 +4121,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DA",
-      "r": "Lab. 227",
-      "o": "Gea"
+      "r": "Lab. 227"
     },
     {
       "g": "AP_N4B",
@@ -4264,8 +4131,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DA",
-      "r": "REMOTO",
-      "o": "Campalans"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N4B",
@@ -4275,8 +4141,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "FS",
-      "r": "REMOTO",
-      "o": "Nacimento"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N4B",
@@ -4286,8 +4151,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DA",
-      "r": "REMOTO",
-      "o": "Campalans"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N4B",
@@ -4297,8 +4161,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "FS",
-      "r": "REMOTO",
-      "o": "Nacimento"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N4C",
@@ -4308,8 +4171,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "FS",
-      "r": "REMOTO",
-      "o": "Ibarra"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N4C",
@@ -4319,8 +4181,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DA",
-      "r": "REMOTO",
-      "o": "Morales"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N4C",
@@ -4330,8 +4191,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "FS",
-      "r": "REMOTO",
-      "o": "Ibarra"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N4C",
@@ -4341,8 +4201,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DA",
-      "r": "REMOTO",
-      "o": "Morales"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N4E",
@@ -4352,8 +4211,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DDA",
-      "r": "REMOTO",
-      "o": "Gregoraz"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N4E",
@@ -4363,8 +4221,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "A2",
-      "r": "REMOTO",
-      "o": "Alvarez"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N4E",
@@ -4374,8 +4231,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DDA",
-      "r": "REMOTO",
-      "o": "Gregoraz"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N4E",
@@ -4385,8 +4241,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "IS",
-      "r": "REMOTO",
-      "o": "Lamas"
+      "r": "REMOTO"
     },
     {
       "g": "ASA_M1A",
@@ -4396,8 +4251,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "Configuración de Windows y Utilitarios",
-      "r": "Lab. 230",
-      "o": "Rodiño"
+      "r": "Lab. 230"
     },
     {
       "g": "ASA_M1A",
@@ -4407,8 +4261,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "Pensamiento computacional",
-      "r": "REMOTO",
-      "o": "Baccino"
+      "r": "REMOTO"
     },
     {
       "g": "ASA_M1A",
@@ -4418,8 +4271,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "Configuración de Windows y Utilitarios",
-      "r": "Lab. 230",
-      "o": "Rodiño"
+      "r": "Lab. 230"
     },
     {
       "g": "ASA_M2A",
@@ -4429,8 +4281,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "Admin. de Servidores Windows",
-      "r": "Lab. 229",
-      "o": "Hernández"
+      "r": "Lab. 229"
     },
     {
       "g": "ASA_M2A",
@@ -4440,8 +4291,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "Fundamentos de ciberseguridad",
-      "r": "Salón 216 / Lab. 113 a demanda",
-      "o": "Martínez Robaina"
+      "r": "Salón 216 / Lab. 113 a demanda"
     },
     {
       "g": "ASA_M2A",
@@ -4451,8 +4301,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "Admin. de Servidores Windows",
-      "r": "Lab. 229",
-      "o": "Hernández"
+      "r": "Lab. 229"
     },
     {
       "g": "ASA_M3A",
@@ -4462,8 +4311,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "Adm. de Servidores LINUX",
-      "r": "Lab. 113",
-      "o": "Vartabedian"
+      "r": "Lab. 113"
     },
     {
       "g": "ASA_M3A",
@@ -4473,8 +4321,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "Aplic. en Servidores Windows",
-      "r": "Lab. 229",
-      "o": "Puig"
+      "r": "Lab. 229"
     },
     {
       "g": "ASA_M3A",
@@ -4484,8 +4331,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "Adm. de Servidores LINUX",
-      "r": "Lab. 113",
-      "o": "Vartabedian"
+      "r": "Lab. 113"
     },
     {
       "g": "ASA_M3A",
@@ -4495,8 +4341,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "Aplic. en Servidores Windows",
-      "r": "Lab. 229",
-      "o": "Puig"
+      "r": "Lab. 229"
     },
     {
       "g": "ASA_M4A",
@@ -4506,8 +4351,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "Programación para DevOps",
-      "r": "Lab. 220",
-      "o": "Arbolaez"
+      "r": "Lab. 220"
     },
     {
       "g": "ASA_M4A",
@@ -4517,8 +4361,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "Redes 1",
-      "r": "Salón 214 / Lab. 210",
-      "o": "Baccino"
+      "r": "Salón 214 / Lab. 210"
     },
     {
       "g": "ASA_M4A",
@@ -4528,8 +4371,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "Programación para DevOps",
-      "r": "Lab. 220",
-      "o": "Arbolaez"
+      "r": "Lab. 220"
     },
     {
       "g": "ASA_M4A",
@@ -4539,8 +4381,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "Redes 1",
-      "r": "Salón 214 / Lab. 210",
-      "o": "Baccino"
+      "r": "Salón 214 / Lab. 210"
     },
     {
       "g": "AII_M1A",
@@ -4550,8 +4391,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "Configuración de Windows y Utilitarios",
-      "r": "Lab. 230",
-      "o": "Rodiño"
+      "r": "Lab. 230"
     },
     {
       "g": "AII_M1A",
@@ -4561,8 +4401,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "Pensamiento computacional",
-      "r": "REMOTO",
-      "o": "Baccino"
+      "r": "REMOTO"
     },
     {
       "g": "AII_M1A",
@@ -4572,8 +4411,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "Configuración de Windows y Utilitarios",
-      "r": "Lab. 230",
-      "o": "Rodiño"
+      "r": "Lab. 230"
     },
     {
       "g": "AII_M2A",
@@ -4583,8 +4421,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "Admin. de Servidores Windows",
-      "r": "Lab. 229",
-      "o": "Hernández"
+      "r": "Lab. 229"
     },
     {
       "g": "AII_M2A",
@@ -4594,8 +4431,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "Fundamentos de ciberseguridad",
-      "r": "Salón 216 / Lab. 113 a demanda",
-      "o": "Martínez Robaina"
+      "r": "Salón 216 / Lab. 113 a demanda"
     },
     {
       "g": "AII_M2A",
@@ -4605,8 +4441,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "Admin. de Servidores Windows",
-      "r": "Lab. 229",
-      "o": "Hernández"
+      "r": "Lab. 229"
     },
     {
       "g": "AII_M3A",
@@ -4616,8 +4451,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "Adm. de Servidores LINUX",
-      "r": "Lab. 113",
-      "o": "Vartabedian"
+      "r": "Lab. 113"
     },
     {
       "g": "AII_M3A",
@@ -4627,8 +4461,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "Aplic. en Servidores Windows",
-      "r": "Lab. 229",
-      "o": "Puig"
+      "r": "Lab. 229"
     },
     {
       "g": "AII_M3A",
@@ -4638,8 +4471,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "Adm. de Servidores LINUX",
-      "r": "Lab. 113",
-      "o": "Vartabedian"
+      "r": "Lab. 113"
     },
     {
       "g": "AII_M3A",
@@ -4649,8 +4481,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "Aplic. en Servidores Windows",
-      "r": "Lab. 229",
-      "o": "Puig"
+      "r": "Lab. 229"
     },
     {
       "g": "AII_M4A",
@@ -4660,8 +4491,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "Programación para DevOps",
-      "r": "Lab. 220",
-      "o": "Arbolaez"
+      "r": "Lab. 220"
     },
     {
       "g": "AII_M4A",
@@ -4671,8 +4501,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "Redes 1",
-      "r": "Salón 214 / Lab. 210",
-      "o": "Baccino"
+      "r": "Salón 214 / Lab. 210"
     },
     {
       "g": "AII_M4A",
@@ -4682,8 +4511,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "Programación para DevOps",
-      "r": "Lab. 220",
-      "o": "Arbolaez"
+      "r": "Lab. 220"
     },
     {
       "g": "AII_M4A",
@@ -4693,8 +4521,7 @@
       "ini": "08:00",
       "fin": "11:00",
       "s": "Redes 1",
-      "r": "Salón 214 / Lab. 210",
-      "o": "Baccino"
+      "r": "Salón 214 / Lab. 210"
     },
     {
       "g": "ASA_N1A",
@@ -4704,8 +4531,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Pensamiento computacional",
-      "r": "REMOTO",
-      "o": "Palay"
+      "r": "REMOTO"
     },
     {
       "g": "ASA_N1A",
@@ -4715,8 +4541,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Configuración de Windows y Utilitarios",
-      "r": "Lab. 230",
-      "o": "Bouza"
+      "r": "Lab. 230"
     },
     {
       "g": "ASA_N1A",
@@ -4726,8 +4551,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Configuración de Windows y Utilitarios",
-      "r": "Lab. 230",
-      "o": "Bouza"
+      "r": "Lab. 230"
     },
     {
       "g": "ASA_N1B",
@@ -4737,8 +4561,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Configuración de Windows y Utilitarios",
-      "r": "Lab. 230",
-      "o": "Anido"
+      "r": "Lab. 230"
     },
     {
       "g": "ASA_N1B",
@@ -4748,8 +4571,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Pensamiento computacional",
-      "r": "REMOTO",
-      "o": "Zonca"
+      "r": "REMOTO"
     },
     {
       "g": "ASA_N1B",
@@ -4759,8 +4581,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Configuración de Windows y Utilitarios",
-      "r": "Lab. 230",
-      "o": "Anido"
+      "r": "Lab. 230"
     },
     {
       "g": "ASA_N2A",
@@ -4770,8 +4591,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Admin. de servidores Windows",
-      "r": "Lab. 15",
-      "o": "Pazos"
+      "r": "Lab. 15"
     },
     {
       "g": "ASA_N2A",
@@ -4781,8 +4601,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Fundamentos de ciberseguridad",
-      "r": "Salón 325 / Lab. 207",
-      "o": "Rodríguez Shaw"
+      "r": "Salón 325 / Lab. 207"
     },
     {
       "g": "ASA_N2A",
@@ -4792,8 +4611,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Admin. de servidores Windows",
-      "r": "Lab. 15",
-      "o": "Pazos"
+      "r": "Lab. 15"
     },
     {
       "g": "ASA_N2B",
@@ -4803,8 +4621,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Admin. de servidores Windows",
-      "r": "Lab. 15",
-      "o": "Carlos"
+      "r": "Lab. 15"
     },
     {
       "g": "ASA_N2B",
@@ -4814,8 +4631,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Fundamentos de ciberseguridad",
-      "r": "Salón 324 / Lab. 111",
-      "o": "Rodríguez Shaw"
+      "r": "Salón 324 / Lab. 111"
     },
     {
       "g": "ASA_N2B",
@@ -4825,8 +4641,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Admin. de servidores Windows",
-      "r": "Lab. 15",
-      "o": "Carlos"
+      "r": "Lab. 15"
     },
     {
       "g": "ASA_N3A",
@@ -4836,8 +4651,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Aplic. en Servidores Windows",
-      "r": "Lab. 229",
-      "o": "Cros"
+      "r": "Lab. 229"
     },
     {
       "g": "ASA_N3A",
@@ -4847,8 +4661,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Adm. de Servidores LINUX",
-      "r": "Lab. 113",
-      "o": "Wagner"
+      "r": "Lab. 113"
     },
     {
       "g": "ASA_N3A",
@@ -4858,8 +4671,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Aplic. en Servidores Windows",
-      "r": "Lab. 229",
-      "o": "Cros"
+      "r": "Lab. 229"
     },
     {
       "g": "ASA_N3A",
@@ -4869,8 +4681,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Adm. de Servidores LINUX",
-      "r": "Lab. 113",
-      "o": "Wagner"
+      "r": "Lab. 113"
     },
     {
       "g": "ASA_N4A",
@@ -4880,8 +4691,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Programación para DevOps",
-      "r": "Lab. 220",
-      "o": "Genta"
+      "r": "Lab. 220"
     },
     {
       "g": "ASA_N4A",
@@ -4891,8 +4701,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Redes 1",
-      "r": "Salón 326",
-      "o": "Barrio"
+      "r": "Salón 326"
     },
     {
       "g": "ASA_N4A",
@@ -4902,8 +4711,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Programación para DevOps",
-      "r": "Lab. 220",
-      "o": "Genta"
+      "r": "Lab. 220"
     },
     {
       "g": "ASA_N4A",
@@ -4913,8 +4721,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Redes 1",
-      "r": "Salón 326 / Lab. 210 a demanda",
-      "o": "Barrio"
+      "r": "Salón 326 / Lab. 210 a demanda"
     },
     {
       "g": "AII_N1A",
@@ -4924,8 +4731,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Pensamiento computacional",
-      "r": "REMOTO",
-      "o": "Palay"
+      "r": "REMOTO"
     },
     {
       "g": "AII_N1A",
@@ -4935,8 +4741,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Configuración de Windows y Utilitarios",
-      "r": "Lab. 230",
-      "o": "Bouza"
+      "r": "Lab. 230"
     },
     {
       "g": "AII_N1A",
@@ -4946,8 +4751,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Configuración de Windows y Utilitarios",
-      "r": "Lab. 230",
-      "o": "Bouza"
+      "r": "Lab. 230"
     },
     {
       "g": "AII_N1B",
@@ -4957,8 +4761,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Configuración de Windows y Utilitarios",
-      "r": "Lab. 230",
-      "o": "Anido"
+      "r": "Lab. 230"
     },
     {
       "g": "AII_N1B",
@@ -4968,8 +4771,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Pensamiento computacional",
-      "r": "REMOTO",
-      "o": "Zonca"
+      "r": "REMOTO"
     },
     {
       "g": "AII_N1B",
@@ -4979,8 +4781,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Configuración de Windows y Utilitarios",
-      "r": "Lab. 230",
-      "o": "Anido"
+      "r": "Lab. 230"
     },
     {
       "g": "AII_N2A",
@@ -4990,8 +4791,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Admin. de servidores Windows",
-      "r": "Lab. 15",
-      "o": "Pazos"
+      "r": "Lab. 15"
     },
     {
       "g": "AII_N2A",
@@ -5001,8 +4801,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Fundamentos de ciberseguridad",
-      "r": "Salón 325 / Lab. 207",
-      "o": "Rodríguez Shaw"
+      "r": "Salón 325 / Lab. 207"
     },
     {
       "g": "AII_N2A",
@@ -5012,8 +4811,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Admin. de servidores Windows",
-      "r": "Lab. 15",
-      "o": "Pazos"
+      "r": "Lab. 15"
     },
     {
       "g": "AII_N2B",
@@ -5023,8 +4821,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Admin. de servidores Windows",
-      "r": "Lab. 15",
-      "o": "Carlos"
+      "r": "Lab. 15"
     },
     {
       "g": "AII_N2B",
@@ -5034,8 +4831,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Fundamentos de ciberseguridad",
-      "r": "Salón 324 / Lab. 111",
-      "o": "Rodríguez Shaw"
+      "r": "Salón 324 / Lab. 111"
     },
     {
       "g": "AII_N2B",
@@ -5045,8 +4841,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Admin. de servidores Windows",
-      "r": "Lab. 15",
-      "o": "Carlos"
+      "r": "Lab. 15"
     },
     {
       "g": "AII_N3A",
@@ -5056,8 +4851,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Aplic. en Servidores Windows",
-      "r": "Lab. 229",
-      "o": "Cros"
+      "r": "Lab. 229"
     },
     {
       "g": "AII_N3A",
@@ -5067,8 +4861,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Adm. de Servidores LINUX",
-      "r": "Lab. 113",
-      "o": "Wagner"
+      "r": "Lab. 113"
     },
     {
       "g": "AII_N3A",
@@ -5078,8 +4871,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Aplic. en Servidores Windows",
-      "r": "Lab. 229",
-      "o": "Cros"
+      "r": "Lab. 229"
     },
     {
       "g": "AII_N3A",
@@ -5089,8 +4881,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Adm. de Servidores LINUX",
-      "r": "Lab. 113",
-      "o": "Wagner"
+      "r": "Lab. 113"
     },
     {
       "g": "AII_N4A",
@@ -5100,8 +4891,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Programación para DevOps",
-      "r": "Lab. 220",
-      "o": "Genta"
+      "r": "Lab. 220"
     },
     {
       "g": "AII_N4A",
@@ -5111,8 +4901,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Redes 1",
-      "r": "Salón 326",
-      "o": "Barrio"
+      "r": "Salón 326"
     },
     {
       "g": "AII_N4A",
@@ -5122,8 +4911,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Programación para DevOps",
-      "r": "Lab. 220",
-      "o": "Genta"
+      "r": "Lab. 220"
     },
     {
       "g": "AII_N4A",
@@ -5133,8 +4921,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Redes 1",
-      "r": "Salón 326 / Lab. 210 a demanda",
-      "o": "Barrio"
+      "r": "Salón 326 / Lab. 210 a demanda"
     },
     {
       "g": "AII_N5A",
@@ -5144,8 +4931,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Impl. de Sol. CLOUD",
-      "r": "Lab. 228",
-      "o": "Améndola"
+      "r": "Lab. 228"
     },
     {
       "g": "AII_N5A",
@@ -5155,8 +4941,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Redes 2",
-      "r": "Salón 325 / Lab. 228 a demanda",
-      "o": "Ravaschio"
+      "r": "Salón 325 / Lab. 228 a demanda"
     },
     {
       "g": "AII_N5A",
@@ -5166,8 +4951,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Impl. de Sol. CLOUD",
-      "r": "Lab. 228",
-      "o": "Améndola"
+      "r": "Lab. 228"
     },
     {
       "g": "AII_N5A",
@@ -5177,8 +4961,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Redes Inalámbricas",
-      "r": "Lab. 210 y Salón 316",
-      "o": "Chiale"
+      "r": "Lab. 210 y Salón 316"
     },
     {
       "g": "AII_N6A",
@@ -5188,8 +4971,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Seguridad en redes y datos",
-      "r": "Salón 316 / Lab. 210 a demanda",
-      "o": "Campiglia"
+      "r": "Salón 316 / Lab. 210 a demanda"
     },
     {
       "g": "AII_N6A",
@@ -5199,8 +4981,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Comunicaciones unificadas",
-      "r": "Salón 326 / Lab. 210 a demanda",
-      "o": "Perelli"
+      "r": "Salón 326 / Lab. 210 a demanda"
     },
     {
       "g": "AII_N6A",
@@ -5210,8 +4991,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Seguridad en redes y datos",
-      "r": "Salón 316",
-      "o": "Campiglia"
+      "r": "Salón 316"
     },
     {
       "g": "AII_N6A",
@@ -5221,8 +5001,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "Monitoreo y sup. de redes",
-      "r": "Lab. 228",
-      "o": "Burel"
+      "r": "Lab. 228"
     },
     {
       "g": "ATI_N1A",
@@ -5232,8 +5011,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DI",
-      "r": "REMOTO",
-      "o": "Suarez"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N1A",
@@ -5243,8 +5021,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "P1",
-      "r": "Salón 222",
-      "o": "Carrasco"
+      "r": "Salón 222"
     },
     {
       "g": "ATI_N1A",
@@ -5254,8 +5031,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "PL",
-      "r": "Salón 222",
-      "o": "di Mateo"
+      "r": "Salón 222"
     },
     {
       "g": "ATI_N1A",
@@ -5265,8 +5041,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "P1",
-      "r": "Lab. 009",
-      "o": "Carrasco"
+      "r": "Lab. 009"
     },
     {
       "g": "ATI_N1B",
@@ -5276,8 +5051,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DI",
-      "r": "REMOTO",
-      "o": "Deangel"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N1B",
@@ -5287,8 +5061,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "PL",
-      "r": "REMOTO",
-      "o": "Gaspar"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N1B",
@@ -5298,8 +5071,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "P1",
-      "r": "REMOTO",
-      "o": "Keushkerian"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N1B",
@@ -5309,8 +5081,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "P1",
-      "r": "REMOTO",
-      "o": "Keushkerian"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N1C",
@@ -5320,8 +5091,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "P1",
-      "r": "REMOTO",
-      "o": "Gentile"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N1C",
@@ -5331,8 +5101,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "PL",
-      "r": "REMOTO",
-      "o": "Rodríguez JP"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N1C",
@@ -5342,8 +5111,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "P1",
-      "r": "REMOTO",
-      "o": "Gentile"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N1C",
@@ -5353,8 +5121,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DI",
-      "r": "REMOTO",
-      "o": "Nuñez"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N2A",
@@ -5364,8 +5131,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "B1",
-      "r": "Lab. 227",
-      "o": "Capone"
+      "r": "Lab. 227"
     },
     {
       "g": "ATI_N2A",
@@ -5375,8 +5141,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "P2",
-      "r": "Salón 323",
-      "o": "Ureta"
+      "r": "Salón 323"
     },
     {
       "g": "ATI_N2A",
@@ -5386,8 +5151,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "MD",
-      "r": "Salón 326",
-      "o": "Giordano"
+      "r": "Salón 326"
     },
     {
       "g": "ATI_N2A",
@@ -5397,8 +5161,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "P2",
-      "r": "Lab. 007",
-      "o": "Ureta"
+      "r": "Lab. 007"
     },
     {
       "g": "ATI_N2B",
@@ -5408,8 +5171,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "P2",
-      "r": "REMOTO",
-      "o": "Baillo"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N2B",
@@ -5419,8 +5181,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "B1",
-      "r": "REMOTO",
-      "o": "Blanco"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N2B",
@@ -5430,8 +5191,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "P2",
-      "r": "REMOTO",
-      "o": "Baillo"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N2B",
@@ -5441,8 +5201,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "MD",
-      "r": "REMOTO",
-      "o": "Cabrera"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N2C",
@@ -5452,8 +5211,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "P2",
-      "r": "REMOTO",
-      "o": "Martinis"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N2C",
@@ -5463,8 +5221,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "MD",
-      "r": "REMOTO",
-      "o": "Kereki"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N2C",
@@ -5474,8 +5231,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "P2",
-      "r": "REMOTO",
-      "o": "Martinis"
+      "r": "REMOTO"
     },
     {
       "g": "ATI_N2C",
@@ -5485,8 +5241,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "B1",
-      "r": "REMOTO",
-      "o": "Areosa"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N1A",
@@ -5496,8 +5251,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DI",
-      "r": "REMOTO",
-      "o": "Suarez"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N1A",
@@ -5507,8 +5261,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "P1",
-      "r": "Salón 222",
-      "o": "Carrasco"
+      "r": "Salón 222"
     },
     {
       "g": "AP_N1A",
@@ -5518,8 +5271,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "PL",
-      "r": "Salón 222",
-      "o": "di Mateo"
+      "r": "Salón 222"
     },
     {
       "g": "AP_N1A",
@@ -5529,8 +5281,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "P1",
-      "r": "Lab. 009",
-      "o": "Carrasco"
+      "r": "Lab. 009"
     },
     {
       "g": "AP_N1B",
@@ -5540,8 +5291,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DI",
-      "r": "REMOTO",
-      "o": "Deangel"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N1B",
@@ -5551,8 +5301,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "PL",
-      "r": "REMOTO",
-      "o": "Gaspar"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N1B",
@@ -5562,8 +5311,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "P1",
-      "r": "REMOTO",
-      "o": "Keushkerian"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N1B",
@@ -5573,8 +5321,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "P1",
-      "r": "REMOTO",
-      "o": "Keushkerian"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N1C",
@@ -5584,8 +5331,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "P1",
-      "r": "REMOTO",
-      "o": "Gentile"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N1C",
@@ -5595,8 +5341,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "PL",
-      "r": "REMOTO",
-      "o": "Rodríguez JP"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N1C",
@@ -5606,8 +5351,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "P1",
-      "r": "REMOTO",
-      "o": "Gentile"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N1C",
@@ -5617,8 +5361,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "DI",
-      "r": "REMOTO",
-      "o": "Nuñez"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N2A",
@@ -5628,8 +5371,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "B1",
-      "r": "Lab. 227",
-      "o": "Capone"
+      "r": "Lab. 227"
     },
     {
       "g": "AP_N2A",
@@ -5639,8 +5381,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "P2",
-      "r": "Salón 323",
-      "o": "Ureta"
+      "r": "Salón 323"
     },
     {
       "g": "AP_N2A",
@@ -5650,8 +5391,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "MD",
-      "r": "Salón 326",
-      "o": "Giordano"
+      "r": "Salón 326"
     },
     {
       "g": "AP_N2A",
@@ -5661,8 +5401,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "P2",
-      "r": "Lab. 007",
-      "o": "Ureta"
+      "r": "Lab. 007"
     },
     {
       "g": "AP_N2B",
@@ -5672,8 +5411,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "P2",
-      "r": "REMOTO",
-      "o": "Baillo"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N2B",
@@ -5683,8 +5421,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "B1",
-      "r": "REMOTO",
-      "o": "Blanco"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N2B",
@@ -5694,8 +5431,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "P2",
-      "r": "REMOTO",
-      "o": "Baillo"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N2B",
@@ -5705,8 +5441,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "MD",
-      "r": "REMOTO",
-      "o": "Cabrera"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N2C",
@@ -5716,8 +5451,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "P2",
-      "r": "REMOTO",
-      "o": "Martinis"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N2C",
@@ -5727,8 +5461,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "MD",
-      "r": "REMOTO",
-      "o": "Kereki"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N2C",
@@ -5738,8 +5471,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "P2",
-      "r": "REMOTO",
-      "o": "Martinis"
+      "r": "REMOTO"
     },
     {
       "g": "AP_N2C",
@@ -5749,8 +5481,7 @@
       "ini": "19:30",
       "fin": "22:30",
       "s": "B1",
-      "r": "REMOTO",
-      "o": "Areosa"
+      "r": "REMOTO"
     }
   ],
   "colores": {
@@ -6034,7 +5765,86 @@
 
 
 
-    function vaciar(sel, texto) { sel.innerHTML = ""; sel.disabled = true; sel.append(new Option(texto || "—", "")); }
+    function gruposSeleccionados() {
+      return [...selGrupo.selectedOptions].map(o => o.value).filter(code => code && DATA.grupos[code]);
+    }
+
+    function actualizarTextoGrupo() {
+      const trigger = $("grupoTrigger");
+      const seleccionados = gruposSeleccionados();
+      if (selGrupo.disabled) trigger.textContent = "—";
+      else if (!seleccionados.length) trigger.textContent = "Elegí uno o varios grupos";
+      else if (seleccionados.length === 1) trigger.textContent = DATA.grupos[seleccionados[0]].label;
+      else trigger.textContent = `${seleccionados.length} grupos seleccionados`;
+    }
+
+    function cerrarSelectorGrupos() {
+      $("grupoPanel").hidden = true;
+      $("grupoTrigger").setAttribute("aria-expanded", "false");
+    }
+
+    function reconstruirPanelGrupos() {
+      const panel = $("grupoPanel");
+      const trigger = $("grupoTrigger");
+      panel.innerHTML = "";
+      trigger.disabled = selGrupo.disabled;
+
+      if (selGrupo.disabled) {
+        cerrarSelectorGrupos();
+        actualizarTextoGrupo();
+        return;
+      }
+
+      for (const nodo of selGrupo.children) {
+        const seccion = document.createElement("div");
+        seccion.className = "multi-seccion";
+        const opciones = nodo.tagName === "OPTGROUP" ? [...nodo.children] : [nodo];
+        if (nodo.tagName === "OPTGROUP") {
+          const titulo = document.createElement("span");
+          titulo.className = "multi-seccion-titulo";
+          titulo.textContent = nodo.label;
+          seccion.append(titulo);
+        }
+        for (const op of opciones) {
+          if (!op.value) continue;
+          const lab = document.createElement("label");
+          lab.className = "multi-opcion";
+          const chk = document.createElement("input");
+          chk.type = "checkbox";
+          chk.value = op.value;
+          chk.checked = op.selected;
+          chk.addEventListener("change", () => {
+            op.selected = chk.checked;
+            actualizarTextoGrupo();
+            render();
+          });
+          const txt = document.createElement("span");
+          txt.textContent = op.textContent;
+          lab.append(chk, txt);
+          seccion.append(lab);
+        }
+        if (seccion.children.length) panel.append(seccion);
+      }
+      actualizarTextoGrupo();
+    }
+
+    $("grupoTrigger").addEventListener("click", () => {
+      if ($("grupoTrigger").disabled) return;
+      const panel = $("grupoPanel");
+      panel.hidden = !panel.hidden;
+      $("grupoTrigger").setAttribute("aria-expanded", String(!panel.hidden));
+    });
+
+    document.addEventListener("click", e => {
+      if (!$("grupoControl").contains(e.target)) cerrarSelectorGrupos();
+    });
+
+    function vaciar(sel, texto) {
+      sel.innerHTML = "";
+      sel.disabled = true;
+      sel.append(new Option(texto || "—", ""));
+      if (sel === selGrupo) reconstruirPanelGrupos();
+    }
 
 
 
@@ -6042,7 +5852,7 @@
 
       const c = selCarrera.value;
 
-      vaciar(selTurno); vaciar(selGrupo);
+      vaciar(selTurno); vaciar(selGrupo); $("mostrarTodos").disabled = true;
 
       if (!HAY_PERIODOS) { selPeriodo.innerHTML = ""; selPeriodo.append(new Option("", PERIODOS[0].id)); selPeriodo.value = PERIODOS[0].id; }
 
@@ -6098,6 +5908,7 @@
 
     selPeriodo.addEventListener("change", () => {
 
+      $("mostrarTodos").disabled = true;
       if (!selPeriodo.value) { vaciar(selTurno); vaciar(selGrupo); render(); return; }
 
       llenarTurnos();
@@ -6110,6 +5921,7 @@
 
     selTurno.addEventListener("change", () => {
 
+      $("mostrarTodos").disabled = true;
       const c = selCarrera.value, t = selTurno.value, r = rama();
 
       selGrupo.innerHTML = "";
@@ -6117,8 +5929,6 @@
       if (!t || !r[c] || !r[c][t]) { vaciar(selGrupo); render(); return; }
 
       selGrupo.disabled = false;
-
-      selGrupo.append(new Option("Elegí tu grupo", ""));
 
       const grupos = ordenarGrupos(r[c][t]);
 
@@ -6144,57 +5954,39 @@
 
       }
 
+      reconstruirPanelGrupos();
+      $("mostrarTodos").disabled = !grupos.length;
       render();
 
     });
 
 
 
-    selGrupo.addEventListener("change", render);
+    selGrupo.addEventListener("change", () => { reconstruirPanelGrupos(); render(); });
 
-
-
-    // ---- vista semana / día por día ----
-
-    const selVista = $("vistaSel");
-
-    const chico = window.matchMedia("(max-width:760px)");
-
-    selVista.value = chico.matches ? "dias" : "semana";
-
-    let vistaElegida = false;
-
-    function aplicarVista() {
-
-      document.body.classList.toggle("vista-dias", selVista.value === "dias");
-
-      if (selGrupo.value) render(); else ajustarTexto();
-
-    }
-
-    selVista.addEventListener("change", () => { vistaElegida = true; aplicarVista(); });
-
-    chico.addEventListener("change", e => {
-
-      if (vistaElegida) return;              // si el alumno ya eligió, se respeta
-
-      selVista.value = e.matches ? "dias" : "semana";
-
-      aplicarVista();
-
+    $("mostrarTodos").addEventListener("click", () => {
+      if (!selCarrera.value || !selTurno.value || selGrupo.disabled) {
+        alert("Elegí primero la carrera y el turno.");
+        return;
+      }
+      for (const op of selGrupo.options) if (op.value) op.selected = true;
+      reconstruirPanelGrupos();
+      cerrarSelectorGrupos();
+      render();
     });
 
-    aplicarVista();
+    // ---- vista fija: siempre semana completa ----
+
 
 
 
     // ---- impresión: la grilla entra siempre en una hoja apaisada ----
 
-    // ancho de medición conservador: cubre tanto A4 como Carta apaisada, con o sin
+    // ancho de medición conservador para A4 apaisada, con o sin
 
     // encabezado del navegador, para que el texto nunca se corte en la hoja
 
-    // Cada papel apaisado, con su ancho real en milímetros. El ancho útil se calcula:
+    // El ancho útil de A4 apaisada se calcula:
 
     // no se escribe a mano, porque de ahí salía el error de medir la letra en una
 
@@ -6216,17 +6008,11 @@
 
     const HOJAS = {
 
-      //                                 ancho del papel      alto útil medido
-
-      a4: { css: "A4 landscape", mm: 297, alto: 715 },
-
-      legal: { css: "legal landscape", mm: 355.6, alto: 735 },
-
-      carta: { css: "letter landscape", mm: 279.4, alto: 735 }
+      a4: { css: "A4 landscape", mm: 297, alto: 715 }
 
     };
 
-    function hojaElegida() { return HOJAS[($("hoja") || {}).value] || HOJAS.a4; }
+    function hojaElegida() { return HOJAS.a4; }
 
     // ancho imprimible del papel, ya sin los márgenes de @page
 
@@ -6274,21 +6060,11 @@
 
     const HOLGURA = 3;         // px de aire que se deja dentro de cada módulo al imprimir
 
-    // El tamaño de papel cambia la geometría con la que se mide el texto, así que al
-
-    // elegirlo se reescribe la regla @page y se vuelve a ajustar lo que está en pantalla.
-
-    const estiloHoja = document.createElement("style");
-
-    document.head.append(estiloHoja);
+    // La impresión usa siempre A4 apaisada y se ajusta con esa geometría.
 
     function aplicarHoja() {
 
       const hj = hojaElegida();
-
-      estiloHoja.textContent =
-
-        `@media print{ @page{ size:${hj.css}; margin:${MARGEN_HOJA_MM}mm } }`;
 
       ANCHO_CARILLA = anchoUtil(hj) * SEGURIDAD_ANCHO;
 
@@ -6306,21 +6082,11 @@
 
     }
 
-    $("hoja").addEventListener("change", aplicarHoja);
-
     aplicarHoja();
 
 
 
-    $("imprimir").addEventListener("click", () => {
-
-      if ($("alcance").value === "carrera") imprimirCarreraTurno();
-
-      else window.print();
-
-    });
-
-
+    // La interfaz ya no exporta PDF: el botón principal muestra todos los grupos del turno.
 
     // ---- alto de la grilla: se calcula para que la semana entre en pantalla sin hacer zoom ----
 
@@ -6334,7 +6100,6 @@
 
     function ajustarAltoGrilla(totalHoras, pisoPorApilado) {
 
-      if (document.body.classList.contains("vista-dias")) return;   // esta vista no usa la grilla
 
       const board = document.querySelector(".board");
 
@@ -6386,18 +6151,65 @@
 
 
 
+    function renderMultiples(codes) {
+      const vista = $("vista"), vacio = $("empty"), cont = $("vistasMultiples");
+      vista.hidden = true;
+      vacio.hidden = true;
+      cont.hidden = false;
+      cont.innerHTML = "";
+
+      const grupos = ordenarGrupos(codes.map(code => DATA.grupos[code]).filter(Boolean));
+      if (!grupos.length) {
+        cont.hidden = true;
+        vacio.hidden = false;
+        vacio.innerHTML = VACIO_ORIGINAL;
+        return;
+      }
+
+      const per = HAY_PERIODOS ? selPeriodo.value : PERIODOS[0].id;
+      const c = selCarrera.value || grupos[0].carrera;
+      const t = selTurno.value || grupos[0].turno;
+      const turno = TURNOS[t];
+
+      document.body.className = document.body.className.replace(/\bturno-\S+/g, "").trim();
+      document.body.classList.add("turno-" + t);
+      document.documentElement.style.setProperty("--hour", "66px");
+
+      const resumen = document.createElement("div");
+      resumen.className = "resumen-multiple";
+      resumen.innerHTML = `<strong>${esc(DATA.carreras[c] || c)}</strong>` +
+        `<span>${esc(turno.nombre)} · ${grupos.length} grupos seleccionados</span>`;
+      cont.append(resumen);
+
+      for (const g of grupos) {
+        const hoja = hojaDeGrupo(g, per);
+        if (hoja) cont.append(hoja);
+      }
+
+      requestAnimationFrame(() => {
+        cont.querySelectorAll(".blk").forEach(el => fit(el, false));
+      });
+    }
+
     function render() {
 
-      const code = selGrupo.value;
+      const codes = gruposSeleccionados();
+      const vista = $("vista"), vacio = $("empty"), multiples = $("vistasMultiples");
 
-      const vista = $("vista"), vacio = $("empty");
+      if (!codes.length) {
 
-      if (!code || !DATA.grupos[code]) {
-
-        vista.hidden = true; vacio.hidden = false; vacio.innerHTML = VACIO_ORIGINAL; return;
+        vista.hidden = true; multiples.hidden = true; multiples.innerHTML = "";
+        vacio.hidden = false; vacio.innerHTML = VACIO_ORIGINAL; return;
 
       }
 
+      if (codes.length > 1) {
+        renderMultiples(codes);
+        return;
+      }
+
+      const code = codes[0];
+      multiples.hidden = true; multiples.innerHTML = "";
       vacio.hidden = true; vista.hidden = false;
 
 
@@ -6416,7 +6228,7 @@
 
       // en la hoja impresa la grilla ocupa lo que el papel permita, sin pasar del alto
 
-      // de referencia del turno: en Legal, que es más ancha, el texto entra más grande
+      // de referencia del turno: en A4 el texto se ajusta para entrar correctamente
 
       document.documentElement.style.setProperty("--hour-print", (turno.hp || 110) + "px");
 
@@ -6542,7 +6354,7 @@
 
             (textoSala(c) ? `<p class="d">${textoSala(c)}</p>` : "") +
 
-            (c.o ? `<p class="o">${esc(c.o)}</p>` : "") + `</div>`;
+            `</div>`;
 
           box.append(it);
 
@@ -6628,7 +6440,7 @@
 
         // la observación, si la hay, ya dice dónde mirar
 
-        if (c.o) return "";
+        
 
         // «Electiva 4» no tiene salón propio: las opciones están en su apartado
 
@@ -6838,9 +6650,9 @@
 
               })() +
 
-              (c.o ? `<p class="o">${esc(c.o)}</p>` : "") + `</div>`;
+              `</div>`;
 
-            el.title = `${c.s} · ${c.ini} a ${c.fin}${c.r ? " · " + c.r : ""}${c.o ? " · " + c.o : ""}`;
+            el.title = `${c.s} · ${c.ini} a ${c.fin}${c.r ? " · " + c.r : ""}`;
 
             col.append(el);
 
@@ -7220,9 +7032,9 @@
 
       document.body.classList.add("imprimiendo-multiple");
 
-      window.print();
+      return false;
 
-      return true;
+      // Impresion masiva deshabilitada: la interfaz solo genera el PDF de la vista actual.
 
     }
 
@@ -7276,7 +7088,7 @@
 
         // imprimen tal como quedan acá, sin pasar por las reglas de @media print.
 
-        for (const [v, sel] of [["--ft", ".t"], ["--fd", ".d"], ["--fh", ".h"], ["--fo", ".o"]]) {
+        for (const [v, sel] of [["--ft", ".t"], ["--fd", ".d"], ["--fh", ".h"]]) {
 
           const min = Math.min(...grupo.map(el => num(el, v)));
 
@@ -7442,7 +7254,7 @@
 
       const t = cont.querySelector(".t"), d = cont.querySelector(".d"),
 
-        h = cont.querySelector(".h"), o = cont.querySelector(".o");
+        h = cont.querySelector(".h");
 
       if (!t || !d) return;
 
@@ -7450,11 +7262,11 @@
 
       // en pantalla la letra no baja de 9 px; en la hoja impresa puede achicarse más
 
-      const piso = guardar ? { t: 7.6, d: 7.2, h: 7, o: 6.6 } : { t: 9.0, d: 8.2, h: 8.0, o: 7.8 };
+      const piso = guardar ? { t: 7.6, d: 7.2, h: 7 } : { t: 9.0, d: 8.2, h: 8.0 };
 
-      const techo = { t: 16.5, d: 14.2, h: 13.2, o: 12.6 };
+      const techo = { t: 16.5, d: 14.2, h: 13.2 };
 
-      const paso = { t: .35, d: .32, h: .28, o: .28 };
+      const paso = { t: .35, d: .32, h: .28 };
 
       // en un bloque bajo el relleno y los espacios entre renglones se comen más de
 
@@ -7472,7 +7284,7 @@
 
         if (h) h.style.fontSize = s.h + "px";
 
-        if (o) o.style.fontSize = s.o + "px";
+        
 
         el.style.setProperty("--gap", gap + "px");
 
@@ -7506,7 +7318,7 @@
 
           if (s.t <= piso.t && s.d <= piso.d) break;
 
-          for (const k of ["t", "d", "h", "o"]) s[k] = Math.max(piso[k], s[k] - paso[k]);
+          for (const k of ["t", "d", "h"]) s[k] = Math.max(piso[k], s[k] - paso[k]);
 
         }
 
@@ -7598,7 +7410,7 @@
 
         el.style.setProperty("--fh", elegido.s.h + "px");
 
-        el.style.setProperty("--fo", elegido.s.o + "px");
+        
 
         el.style.setProperty("--pad", elegido.pad);
 
@@ -7652,7 +7464,7 @@
 
       resizeTimer = setTimeout(() => {
 
-        if (selGrupo.value && !document.body.classList.contains("vista-dias")) render();
+        if (gruposSeleccionados().length) render();
 
       }, 150);
 
